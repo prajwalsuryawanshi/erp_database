@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create User</title>
+</head>
+<body>
+    <h1>Create User</h1>
+    {% if errors %}
+        <ul style="color: red;">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post">
+        <label>Username:</label>
+        <input type="text" name="username"><br>
+        <label>Name:</label>
+        <input type="text" name="name"><br>
+        <label>Qualification:</label>
+        <input type="text" name="qualification"><br>
+        <label>Email:</label>
+        <input type="email" name="email"><br>
+        <label>Contact:</label>
+        <input type="text" name="contact"><br>
+        <label>Address:</label>
+        <input type="text" name="address"><br>
+        <label>User Type:</label>
+        <select name="user_type">
+            <option value="">Select User Type</option>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+            <option value="super admin">Super Admin</option>
+        </select><br>
+        <button type="submit">Create User</button>
+    </form>
+</body>
+</html>
