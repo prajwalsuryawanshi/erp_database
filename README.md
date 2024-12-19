@@ -1,5 +1,5 @@
-1 Clone the repo 
-2 Change Dircertory
-3 run python manage.py makemigrations
-4 run python manage.py migrate
-5 run python manage.py runserver
+1 Clone the repo <br>
+2 Change Dircertory <br>
+3 run python manage.py makemigrations <br>
+4 run python manage.py migrate <br>
+5 run python manage.py runserver <br>
