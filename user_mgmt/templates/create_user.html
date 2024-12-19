@@ -5,14 +5,11 @@
 </head>
 <body>
     <h1>Create User</h1>
-    {% if errors %}
-        <ul style="color: red;">
-            {% for error in errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
     {% endif %}
     <form method="post">
+        {% csrf_token %}
         <label>Username:</label>
         <input type="text" name="username"><br>
         <label>Name:</label>
@@ -27,7 +24,6 @@
         <input type="text" name="address"><br>
         <label>User Type:</label>
         <select name="user_type">
-            <option value="">Select User Type</option>
             <option value="student">Student</option>
             <option value="admin">Admin</option>
             <option value="super admin">Super Admin</option>

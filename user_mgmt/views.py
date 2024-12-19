@@ -1,7 +1,26 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from .models import User
+from .models import Users
 from django.db import IntegrityError
+from django.shortcuts import get_object_or_404, redirect
+
+@csrf_exempt
+def update_user(request, user_id):
+    user = get_object_or_404(Users, user_id=user_id)
+
+    if request.method == 'POST':
+        user.username = request.POST.get('username')
+        user.name = request.POST.get('name')
+        user.qualification = request.POST.get('qualification')
+        user.email = request.POST.get('email')
+        user.contact = request.POST.get('contact')
+        user.address = request.POST.get('address')
+        user.user_type = request.POST.get('user_type')
+        user.is_active = request.POST.get('is_active') == 'true'
+        user.save()
+        return redirect('view_users')
+
+    return render(request, 'update_user.html', {'user': user})
 
 @csrf_exempt
 def create_user(request):
@@ -35,14 +54,15 @@ def create_user(request):
             return render(request, 'create_user.html', {'errors': errors})
 
         try:
-            User.objects.create(
+            Users.objects.create(
                 username=username,
                 name=name,
                 qualification=qualification,
                 email=email,
                 contact=contact,
                 address=address,
-                user_type=user_type
+                user_type=user_type,
+                is_active=True
             )
             return render(request, 'user_created.html', {'username': username})
         except IntegrityError as e:
@@ -55,5 +75,12 @@ def create_user(request):
     return render(request, 'create_user.html')
 
 def view_users(request):
-    users = User.objects.all()
+    users = Users.objects.all()
     return render(request, 'view_users.html', {'users': users})
+
+def delete_user(request, user_id):
+    user = get_object_or_404(Users, user_id=user_id)
+    if user.is_active:
+        user.is_active = False
+        user.save()
+    return redirect('view_users')

@@ -1,0 +1,3 @@
+django 
+jinja3
+mysqlclient
